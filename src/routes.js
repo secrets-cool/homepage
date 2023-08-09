@@ -1,5 +1,9 @@
+import Password from './views/Password.vue'
+import Encrypt from './views/Encrypt.vue'
+import Settings from './views/Settings.vue'
+
 export const routes = [
-  { name: 'Password', path: '/', component: () => import('./views/Password.vue') },
-  { name: 'Encrypt', path: '/encrypt', component: () => import('./views/Encrypt.vue') },
-  { name: 'Settings', path: '/settings', component: () => import('./views/Settings.vue') },
+  { name: 'Password', path: '/', component: Password },
+  { name: 'Encrypt', path: '/encrypt', component: Encrypt },
+  { name: 'Settings', path: '/settings', component: Settings },
 ]
