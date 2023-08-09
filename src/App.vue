@@ -24,7 +24,9 @@ const renderMenuLabel = (option) => {
         </div>
       </n-layout-header>
       <n-layout-content>
-        <router-view />
+        <div class="page">
+          <router-view />
+        </div>
       </n-layout-content>
     </n-layout>
   </n-config-provider>
@@ -38,4 +40,7 @@ const renderMenuLabel = (option) => {
   align-items: center;
 }
 
+.page {
+  padding: 15px;
+}
 </style>
