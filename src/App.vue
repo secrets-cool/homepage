@@ -1,8 +1,10 @@
 <script setup>
 import { h } from 'vue'
 import { RouterLink } from 'vue-router'
-import { NConfigProvider, NGlobalStyle, darkTheme, NLayout, NLayoutHeader, NLayoutContent, NLayoutFooter, NMenu } from 'naive-ui'
+import { NConfigProvider, NGlobalStyle, darkTheme, NLayout, NLayoutHeader, NLayoutContent, NMenu } from 'naive-ui'
+
 import { routes } from './routes'
+import { theme } from './settings'
 
 const topNav = routes.map(r => ({ label: r.name, key: r.path, path: r.path }))
 const renderMenuLabel = (option) => {
@@ -15,7 +17,7 @@ const renderMenuLabel = (option) => {
 </script>
 
 <template>
-  <n-config-provider :theme="darkTheme">
+  <n-config-provider :theme="theme === 'dark' ? darkTheme : null">
     <n-global-style />
     <n-layout>
       <n-layout-header>
