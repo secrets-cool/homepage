@@ -1,30 +1,41 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { h } from 'vue'
+import { RouterLink } from 'vue-router'
+import { NConfigProvider, NGlobalStyle, darkTheme, NLayout, NLayoutHeader, NLayoutContent, NLayoutFooter, NMenu } from 'naive-ui'
+import { routes } from './routes'
+
+const topNav = routes.map(r => ({ label: r.name, key: r.path, path: r.path }))
+const renderMenuLabel = (option) => {
+  return h(
+    RouterLink,
+    { to: option.path },
+    { default: () => option.label }
+  )
+}
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <n-config-provider :theme="darkTheme">
+    <n-global-style />
+    <n-layout>
+      <n-layout-header>
+        <div class="banner">
+          <n-menu :value="$route.path" :options="topNav" mode="horizontal" :render-label="renderMenuLabel" />
+        </div>
+      </n-layout-header>
+      <n-layout-content>
+        <router-view />
+      </n-layout-content>
+    </n-layout>
+  </n-config-provider>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.banner {
+  height: 64px;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>
