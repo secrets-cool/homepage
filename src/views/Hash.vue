@@ -15,13 +15,13 @@ function toOptions(arr) {
 const hashOptions = toOptions(['md5', 'sha256'])
 const formatOptions = toOptions(['base64', 'hex'])
 const processOptions = [{
-  label: '过滤',
+  label: 'Filter',
   value: 'filter'
 }, {
-  label: '多轮',
+  label: 'Repeat',
   value: 'multiround'
 }, {
-  label: '不处理',
+  label: 'None',
   value: 'none'
 }]
 
@@ -41,12 +41,19 @@ function computeHash(text, hash, format) {
 }
 
 watch(formValue.value, ({ text, hash: hash, format, process, length }) => {
-  let hashed = computeHash(text, hash, format).substr(0, length)
-  for (let cnt = 0; !/^[0-9A-Za-z]+$/.test(hashed) && cnt < 32; cnt++) {
-    if (process === 'multiround') hashed = computeHash(hashed, hash, format).substr(0, length)
-    else if (process === 'filter') hashed = hashed.replace(/[+/=]/g, '').substr(0, length)
-    else break
+  if (!text) return result.value = ''
+
+  let hashed = text
+  if (process === 'multiround') {
+    do {
+      hashed = computeHash(hashed, hash, format).substr(0, length)
+    } while (!/^[0-9A-Za-z]+$/.test(hashed))
+  } else {
+    hashed = computeHash(text, hash, format)
+    if (process === 'filter') hashed = hashed.replace(/[+/=]/g, '').substr(0, length)
+    else hashed = hashed.substr(0, length)
   }
+
   result.value = hashed
 })
 
@@ -72,14 +79,14 @@ function copyToClipboard() {
           <n-form-item-gi label="format">
             <n-select :options="formatOptions" v-model:value="formValue.format" />
           </n-form-item-gi>
-          <n-form-item-gi label="特殊字符">
+          <n-form-item-gi label="Handle +/=">
             <n-select :options="processOptions" v-model:value="formValue.process" />
           </n-form-item-gi>
           <n-form-item-gi label="result" :span="2">
             <n-input placeholder="result" v-model:value="result" @focus="copyToClipboard" readonly ref="resultInput" />
           </n-form-item-gi>
-          <n-form-item-gi label="长度">
-            <n-input-number placeholder="长度" v-model:value="formValue.length" />
+          <n-form-item-gi label="Length">
+            <n-input-number v-model:value="formValue.length" />
           </n-form-item-gi>        
       </n-grid>
     </n-form>

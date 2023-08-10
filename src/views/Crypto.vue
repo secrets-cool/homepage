@@ -83,7 +83,6 @@ watch([input, key], () => ({ encrypt, decrypt }[mode.value])().catch(e => {
 
 <template>
   <n-card title="Encrypt / Decrypt">
-    {{ mode }}
     <n-form>
       <n-form-item label-placement="left">
         <n-input v-model:value="input" placeholder="Input your text here" type="textarea" :autosize="{ minRows: 3, maxRows: 15 }" />
