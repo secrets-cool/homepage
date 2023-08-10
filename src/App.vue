@@ -1,6 +1,5 @@
 <script setup>
 import { h } from 'vue'
-import { RouterLink } from 'vue-router'
 import { NIcon, NConfigProvider, NGlobalStyle, darkTheme, NLayout, NLayoutHeader, NLayoutContent, NMenu } from 'naive-ui'
 
 import { routes } from './routes'
