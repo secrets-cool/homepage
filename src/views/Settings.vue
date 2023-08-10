@@ -10,7 +10,7 @@ watch(isDark, (value) => { theme.value = value ? 'dark' : 'light' })
 <template>
   <n-card title="UI">
     <n-form label-placement="left">
-      <n-grid cols="4">
+      <n-grid cols="3">
         <n-form-item-gi label="Dark theme">
           <n-switch v-model:value="isDark" />
         </n-form-item-gi>

@@ -1,19 +1,14 @@
 <script setup>
 import { h } from 'vue'
 import { RouterLink } from 'vue-router'
-import { NConfigProvider, NGlobalStyle, darkTheme, NLayout, NLayoutHeader, NLayoutContent, NMenu } from 'naive-ui'
+import { NIcon, NConfigProvider, NGlobalStyle, darkTheme, NLayout, NLayoutHeader, NLayoutContent, NMenu } from 'naive-ui'
 
 import { routes } from './routes'
 import { theme } from './settings'
 
-const topNav = routes.map(r => ({ label: r.name, key: r.path, path: r.path }))
-const renderMenuLabel = (option) => {
-  return h(
-    RouterLink,
-    { to: option.path },
-    { default: () => option.label }
-  )
-}
+const allRoutes = routes.map(r => ({ label: '', key: r.path, icon: () => h(NIcon, { component: r.icon }) }))
+const leftNav = allRoutes.slice(0, 2)
+const rightNav = allRoutes.slice(2)
 </script>
 
 <template>
@@ -22,7 +17,9 @@ const renderMenuLabel = (option) => {
     <n-layout>
       <n-layout-header>
         <div class="banner">
-          <n-menu :value="$route.path" :options="topNav" mode="horizontal" :render-label="renderMenuLabel" />
+          <n-menu :value="$route.path" :options="leftNav" mode="horizontal" @update:value="(path) => $router.replace(path)" />
+          <div style="flex: 1"></div>
+          <n-menu :value="$route.path" :options="rightNav" mode="horizontal" @update:value="(path) => $router.replace(path)" />
         </div>
       </n-layout-header>
       <n-layout-content>
