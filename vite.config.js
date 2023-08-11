@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { Plugin as importToCDN, autoComplete } from 'vite-plugin-cdn-import'
 
@@ -6,6 +6,7 @@ import { Plugin as importToCDN, autoComplete } from 'vite-plugin-cdn-import'
 export default defineConfig({
   plugins: [
     vue(),
+    splitVendorChunkPlugin(),
     importToCDN({
       prodUrl: 'https://npm.elemecdn.com/{name}@{version}/{path}',
       modules: [
