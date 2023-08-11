@@ -8,7 +8,7 @@ export default defineConfig({
     vue(),
     splitVendorChunkPlugin(),
     importToCDN({
-      prodUrl: 'https://npm.elemecdn.com/{name}@{version}/{path}',
+      prodUrl: 'https://cdn.secrets.cool/{name}@{version}/{path}',
       modules: [
         autoComplete('vue'),
         {
